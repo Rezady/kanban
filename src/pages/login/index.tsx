@@ -12,7 +12,7 @@ const Login = () => {
   const formik = useFormik<InitialLoginTypes>({
     initialValues: InitialLogin,
     onSubmit: async (values) => {
-      if (values.username === "reza" && values.password === "best") {
+      if (values.username === "developer" && values.password === "kanban") {
         setUser(values.username);
         navigate("/");
       }

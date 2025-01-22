@@ -15,7 +15,10 @@ const ListTasks = () => {
       {statusTasks.map((status, key) => (
         <div className="flex flex-col gap-3 items-center" key={key}>
           <p>{status.label}</p>
-          <Card border className="p-6 min-h-full flex flex-col gap-4">
+          <Card
+            border
+            className="p-6 min-h-full flex flex-col gap-4 min-w-[250px]"
+          >
             {tasks[status.value as keyof AllTasksTypes].map(
               (list, keyChild) => (
                 <Card

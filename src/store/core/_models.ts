@@ -11,4 +11,5 @@ export interface TaskStoreTypes {
   tasks: AllTasksTypes;
   setTasks: (value: TaskCardsTypes, key: keyof AllTasksTypes) => void;
   deleteTask: (value: TaskCardsTypes[], key: keyof AllTasksTypes) => void;
+  editTask: (value: AllTasksTypes) => void;
 }

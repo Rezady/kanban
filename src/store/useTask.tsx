@@ -20,6 +20,7 @@ export const useTask = create<TaskStoreTypes>()(
           set((state) => ({
             tasks: { ...state.tasks, [key]: value },
           })),
+        editTask: (value: AllTasksTypes) => set(() => ({ tasks: value })),
       }),
       { name: "task" }
     )

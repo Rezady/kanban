@@ -1,21 +1,26 @@
 import clsx from "clsx";
 import { FC } from "react";
-import { backgroundColorProps } from "./core/const";
+import { backgroundColorProps, ListMenu } from "./core/const";
 import { backgroundColorPropsType, MenuTypes } from "./core/types";
 import ArrowDown from "./icons/ArrowDown";
+import { NavLink, useLocation } from "react-router-dom";
 
 const Menu: FC<MenuTypes> = ({ user, children, background, onLogout }) => {
+  const { pathname } = useLocation();
+
   return (
     <div className="flex flex-col min-w-[100vw] min-h-[100vh]">
       <div
         className={clsx(
-          "flex justify-between p-3",
+          "flex justify-between py-6 px-3",
           backgroundColorProps[background as keyof backgroundColorPropsType]
         )}
       >
-        <h4>Kanban</h4>
+        <h4 className="text-gray-50 text-3xl font-semibold cursor-pointer">
+          Kanban
+        </h4>
         <div
-          className="flex gap-2 items-center cursor-pointer"
+          className="flex gap-2 items-center cursor-pointer text-gray-50 text-lg font-semibold"
           onClick={onLogout}
         >
           Logout
@@ -29,10 +34,24 @@ const Menu: FC<MenuTypes> = ({ user, children, background, onLogout }) => {
             backgroundColorProps[background as keyof backgroundColorPropsType]
           )}
         >
-          tess
+          {ListMenu.map((menu, key) => (
+            <NavLink
+              to={menu.link}
+              style={({ isActive }) => ({
+                background: isActive ? "#570987" : "",
+                opacity: "0.8",
+              })}
+              key={key}
+              className="text-gray-50 text-lg cursor-pointer rounded-lg p-3 font-medium"
+            >
+              {menu.name}
+            </NavLink>
+          ))}
         </div>
         <div className="bg-gray-50 grow p-6">
-          <p className="mb-4">Hi {user},</p>
+          <p className="mb-4 text-purple-800 font-semibold text-2xl">
+            Hi {user},
+          </p>
           {children}
         </div>
       </div>

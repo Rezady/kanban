@@ -22,6 +22,14 @@ const PrivateRoutes = () => {
         }
       >
         <Route
+          path="edit"
+          element={
+            <Suspense fallback={<p>...Loading</p>}>
+              <CreateTasks />
+            </Suspense>
+          }
+        />
+        <Route
           path="create"
           element={
             <Suspense fallback={<p>...Loading</p>}>

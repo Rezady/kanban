@@ -8,3 +8,8 @@ export const backgroundColorProps: backgroundColorPropsType = {
   red: "bg-red-300",
   green: "bg-green-500",
 };
+
+export const ListMenu = [
+  { name: "Home", link: "/" },
+  { name: "Create", link: "/create" },
+];

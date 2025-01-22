@@ -6,32 +6,61 @@ import { RoleList, statusTasks, TasksTypes } from "../../modules/user/_models";
 import Button from "../../components/Button";
 import useTask from "../../store/useTask";
 import { AllTasksTypes } from "../../store/core/_models";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getError } from "../../modules/form/_helpers";
 import dayjs from "dayjs";
 import { toast } from "react-toastify";
 
 const CreateTasks = () => {
-  const { setTasks, tasks } = useTask();
+  const { setTasks, tasks, editTask } = useTask();
+  const { state } = useLocation();
   const navigate = useNavigate();
   const formik = useFormik<TasksTypes>({
-    initialValues: InitialCreateTasks,
+    initialValues: InitialCreateTasks(state),
     validationSchema: CreateTaskValidation,
     onSubmit: (values) => {
       for (const assign of values.assign) {
-        setTasks(
-          {
-            ...values,
-            id: `${values?.status?.value as string}-${assign.value}-${
-              tasks[values?.status?.value as keyof AllTasksTypes].length + 1
-            }`,
-            assign: assign,
-            createdAt: dayjs().format("DD MMMM YYYY"),
-          },
-          values.status?.value as keyof AllTasksTypes
-        );
+        // condition edit invoice
+        if (state) {
+          const listTask = [
+            ...tasks[state.status.value as keyof AllTasksTypes],
+          ];
+          // condition user change status
+          if (state.status.value !== values?.status?.value) {
+            const newTask = listTask.filter((each) => each.id !== values?.id);
+            editTask({
+              ...tasks,
+              [state.status.value]: newTask,
+              [values?.status?.value as string]: [
+                ...tasks[values?.status?.value as keyof AllTasksTypes],
+                { ...values, assign, createdAt: state.createdAt },
+              ],
+            });
+          } else {
+            const newTask = listTask.map((task) =>
+              task.id === values?.id
+                ? { ...values, assign, createdAt: state.createdAt }
+                : task
+            );
+            editTask({ ...tasks, [values.status?.value as string]: newTask });
+          }
+        }
+        // condition on create page
+        else {
+          setTasks(
+            {
+              ...values,
+              id: `${values?.name}-${assign.value}-${
+                tasks[values?.status?.value as keyof AllTasksTypes].length + 1
+              }`,
+              assign,
+              createdAt: dayjs().format("DD MMMM YYYY"),
+            },
+            values.status?.value as keyof AllTasksTypes
+          );
+        }
       }
-      toast.success("successfully create task", {
+      toast.success(`successfully ${state ? "edit" : "create"} task`, {
         position: "bottom-center",
       });
       navigate("/");
@@ -43,9 +72,14 @@ const CreateTasks = () => {
         <Input
           label="Name"
           error={getError<TasksTypes>(formik, "name")}
+          placeholder="Name"
           {...formik.getFieldProps("name")}
         />
-        <Input label="Description" {...formik.getFieldProps("description")} />
+        <Input
+          placeholder="Description"
+          label="Description"
+          {...formik.getFieldProps("description")}
+        />
         <Dropdown
           label="Assign"
           placeholder="Assign"
@@ -71,7 +105,7 @@ const CreateTasks = () => {
             })
           }
         />
-        <Button title="Create Task" type="submit" />
+        <Button title={`${state ? "Edit" : "Create"} Task`} type="submit" />
       </div>
     </form>
   );

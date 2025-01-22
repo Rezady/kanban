@@ -46,10 +46,10 @@ const Dropdown: FC<DropddownTypes> = ({
         <button
           type="button"
           className={clsx(
-            "outline-none border border-gray-600 inline-flex w-full justify-between gap-x-1.5 rounded-md bg-white px-3 py-3 text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300",
-            (!selected ||
-              (!(selected as FormValue[])?.length && multipleValue)) &&
-              "text-gray-300"
+            "outline-none border border-gray-600 inline-flex w-full justify-between gap-x-1.5 rounded-md bg-white px-3 py-3 text-sm  shadow-sm ring-1 ring-inset ring-gray-300",
+            !selected || (!(selected as FormValue[])?.length && multipleValue)
+              ? "text-gray-300"
+              : "text-gray-900"
           )}
           aria-expanded="true"
           aria-haspopup="true"
