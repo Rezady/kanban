@@ -41,7 +41,7 @@ const Menu: FC<MenuTypes> = ({ user, children, background, onLogout }) => {
               to={menu.link}
               style={({ isActive }) => ({
                 background: isActive ? "#570987" : "",
-                opacity: isActive && "0.6",
+                opacity: isActive ? "0.6" : "",
               })}
               key={key}
               className="text-gray-50 text-lg cursor-pointer rounded-lg p-3 font-medium"
