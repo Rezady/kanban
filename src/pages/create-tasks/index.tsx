@@ -67,8 +67,15 @@ const CreateTasks = () => {
     },
   });
   return (
-    <form onSubmit={formik.handleSubmit}>
-      <div className="flex flex-col gap-6 w-3/6 ">
+    <div className="flex flex-col gap-4 items-center">
+      <h5 className="text-3xl text-red-600 font-bold text-center">
+        {state ? "Edit Task" : "Create Task"}
+      </h5>
+      <form
+        onSubmit={formik.handleSubmit}
+        className="flex flex-col justify-center gap-6 w-3/6"
+      >
+        {/* <div > */}
         <Input
           label="Name"
           error={getError<TasksTypes>(formik, "name")}
@@ -105,9 +112,14 @@ const CreateTasks = () => {
             })
           }
         />
-        <Button title={`${state ? "Edit" : "Create"} Task`} type="submit" />
-      </div>
-    </form>
+        <Button
+          title={`${state ? "Edit" : "Create"} Task`}
+          type="submit"
+          size="full"
+        />
+        {/* </div> */}
+      </form>
+    </div>
   );
 };
 

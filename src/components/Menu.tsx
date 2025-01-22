@@ -3,9 +3,10 @@ import { FC } from "react";
 import { backgroundColorProps, ListMenu } from "./core/const";
 import { backgroundColorPropsType, MenuTypes } from "./core/types";
 import ArrowDown from "./icons/ArrowDown";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Menu: FC<MenuTypes> = ({ user, children, background, onLogout }) => {
+  const navigate = useNavigate();
   return (
     <div className="flex flex-col min-w-[100vw] min-h-[100vh]">
       <div
@@ -14,7 +15,10 @@ const Menu: FC<MenuTypes> = ({ user, children, background, onLogout }) => {
           backgroundColorProps[background as keyof backgroundColorPropsType]
         )}
       >
-        <h4 className="text-gray-50 text-3xl font-semibold cursor-pointer">
+        <h4
+          className="text-gray-50 text-3xl font-semibold cursor-pointer"
+          onClick={() => navigate("/")}
+        >
           Kanban
         </h4>
         <div
@@ -37,7 +41,7 @@ const Menu: FC<MenuTypes> = ({ user, children, background, onLogout }) => {
               to={menu.link}
               style={({ isActive }) => ({
                 background: isActive ? "#570987" : "",
-                opacity: "0.8",
+                opacity: isActive && "0.6",
               })}
               key={key}
               className="text-gray-50 text-lg cursor-pointer rounded-lg p-3 font-medium"

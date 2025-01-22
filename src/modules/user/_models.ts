@@ -19,7 +19,6 @@ export interface TasksTypes {
   assign: FormValue[];
   status?: FormValue;
   createdAt?: string;
-  updatedAt?: string;
 }
 
 export interface TaskCardsTypes extends Omit<TasksTypes, "assign"> {

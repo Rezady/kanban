@@ -7,6 +7,7 @@ import IconDelete from "../../components/icons/IconDelete";
 import useTask from "../../store/useTask";
 import { AllTasksTypes } from "../../store/core/_models";
 import { toast } from "react-toastify";
+import { getCardInformation } from "../../modules/user/_helpers";
 
 const DetailTasks = () => {
   const { state } = useLocation();
@@ -25,14 +26,17 @@ const DetailTasks = () => {
   };
 
   return (
-    <div className="flex flex-col gap-6">
-      <Card border>
-        <p>{state.name}</p>
-        <p>{state.description}</p>
-        <p>{state.assign.label}</p>
-        <p>{state.createdAt}</p>
+    <div className="flex flex-col gap-6 w-full items-center">
+      <h5 className="text-3xl text-red-600 font-bold">Detail Information</h5>
+      <Card className="flex flex-col gap-3" border>
+        {getCardInformation(state).map((info, keyInfo) => (
+          <div className="flex flex-col" key={keyInfo}>
+            <p className="text-gray-800 text-sm font-medium">{info.title}</p>
+            <p className="text-gray-600 text-xs">- {info.info}</p>
+          </div>
+        ))}
       </Card>
-      <div className="flex justify-between gap-10">
+      <div className="flex justify-between gap-10 w-full">
         <Button
           title={"Delete Task"}
           background="red"
