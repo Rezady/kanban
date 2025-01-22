@@ -3,11 +3,9 @@ import { FC } from "react";
 import { backgroundColorProps, ListMenu } from "./core/const";
 import { backgroundColorPropsType, MenuTypes } from "./core/types";
 import ArrowDown from "./icons/ArrowDown";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Menu: FC<MenuTypes> = ({ user, children, background, onLogout }) => {
-  const { pathname } = useLocation();
-
   return (
     <div className="flex flex-col min-w-[100vw] min-h-[100vh]">
       <div
