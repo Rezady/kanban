@@ -1,3 +1,10 @@
+# if want running on local just type command "npm install" or "yarn install"
+
+# account can login
+username: developer
+password: kanban
+
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

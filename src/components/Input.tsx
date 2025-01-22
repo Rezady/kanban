@@ -31,7 +31,7 @@ const Input: FC<InputTypes> = ({
           />
         </div>
       </div>
-      <p className="text-red-400 font-poppins text-extra-small mt-1">{error}</p>
+      <span className="text-red-400 font-poppins text-sm mt-1">{error}</span>
     </div>
   );
 };
